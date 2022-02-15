@@ -1,5 +1,3 @@
-import _ from "lodash";
-
 export class Brainfck{
     private static MEMORY_SIZE: number = 30000;
 
