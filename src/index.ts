@@ -56,7 +56,7 @@ export class Brainfck{
     }
 
     private sanitizeCode(code: string): string{
-        return code.replace(/(\r\n|\n|\r)/gm, "");
+        return code.replace(/(\r\n|\n|\r)/gm, "").replace(/^(?![-+<>\[\]]).*$/gm, "");
     }
 
     private analyzeCode(code: string): void{
