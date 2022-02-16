@@ -46,6 +46,7 @@ export class Brainfck{
     }
 
     public interpret(code: string): void{
+        this.reset();
         this.code = this.sanitizeCode(code);
         this.analyzeCode(this.code);
 
@@ -55,8 +56,21 @@ export class Brainfck{
         }
     }
 
+    public format(code: string): string{
+        return this.sanitizeCode(code);
+    }
+
+    private reset(): void{
+        this.stop = false;
+        this.memory = _.times(Brainfck.MEMORY_SIZE, _.constant(0));
+        this.loopLookupTable = [];
+        this.pointer = 0;
+        this.code = "";
+        this.codeIndexer = 0;
+    }
+
     private sanitizeCode(code: string): string{
-        return code.replace(/(\r\n|\n|\r)/gm, "").replace(/^(?![-+<>\[\]]).*$/gm, "");
+        return code.replace(/(\r\n|\n|\r)/gm, "").replace(/[^\[\]<>\+\-\.\,]/gm, "");
     }
 
     private analyzeCode(code: string): void{
