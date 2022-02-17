@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>HTML 5 Boilerplate</title>
+  <link rel="stylesheet" href="style.css">
+  <script
+          src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+          integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+          crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="Title">
+  <h1>Brainfck.js</h1>
+</div>
+<div id="Window">
+  <div id="InputWindow">
+    <h4>Code</h4>
+    <textarea id="BrainfuckCode" name="BrainfuckCode" rows="26" cols="150"></textarea>
+    <h4>Input</h4>
+    <input id="BrainfuckInput" name="BrainfuckInput">
+  </div>
+  <div id="ControlWindow">
+    <button onclick="runCode()">Run</button>
+    <button onclick="formatCode()">Format</button>
+    <button onclick="clearOutput()">Clear</button>
+  </div>
+  <div id="OutputWindow">
+    <div id="OutputWindowLoader">
+      <div class="loader-container">
+        <div class="loader"></div>
+      </div>
+    </div>
+    <h4>Output</h4>
+    <textarea id="BrainfuckOutput" name="BrainfuckOutput" rows="26" cols="150"></textarea>
+  </div>
+</div>
+<script src="brainfck.js"></script>
+<script>
+	const obj = new window.Brainfck((output) => {
+      const outputWindow = $("#BrainfuckOutput");
+      outputWindow.val(outputWindow.val() + output);
+    }, () => {
+      return $("#BrainfuckInput").val();
+    });
+
+    function runCode(){
+      $("#OutputWindowLoader").show();
+      obj.interpret($("#BrainfuckCode").val());
+      $("#OutputWindowLoader").hide();
+    }
+
+    function formatCode(){
+      $("#BrainfuckCode").val(obj.format($("#BrainfuckCode").val()));
+    }
+
+    function clearOutput(){
+      $("#BrainfuckOutput").val("");
+    }
+</script>
+</body>
+</html>

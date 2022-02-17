@@ -1,0 +1,118 @@
+@font-face {
+    font-family: CodeBold;
+    src: url("fonts/CODE Bold.otf");
+}
+
+html{
+    background-color: #1d2539;
+    width: 100%;
+    overflow: hidden;
+}
+
+body{
+    width: 100%;
+}
+
+input,
+textarea:focus,
+textarea{
+    background-color: #333d53;
+    color: #feffff;
+    resize: none;
+    border: 1px #1d2539 solid;
+    outline: none !important;
+    width: 100%;
+    margin: 20px 0;
+}
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+    -webkit-appearance: button;
+    border: 0;
+}
+
+button{
+    background-color: #333d53;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-family: CodeBold, serif;
+    color: #feffff;
+    font-size: 24px;
+}
+
+button:hover{
+    background-color: #4b5c7b;
+    cursor: pointer;
+}
+
+#Title{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #111622;
+    width: 100%;
+    padding: 20px 0 20px 20px;
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-family: CodeBold, serif;
+    color: #feffff;
+    margin: 0;
+}
+
+#Window{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#ControlWindow{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 20px;
+}
+
+#BrainfuckCode,
+#BrainfuckOutput{
+    white-space: pre;
+    font-family: 'Lucida Console', 'Courier New', monospace;
+}
+
+#OutputWindowLoader{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: rgba(52, 64, 85, 0.5);
+    display: none;
+}
+
+#OutputWindow{
+    position: relative;
+}
+
+.loader-container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
