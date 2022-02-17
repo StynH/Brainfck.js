@@ -31,24 +31,36 @@ export class Brainfck{
 
     private pointer: number;
     private codeIndexer: number;
-    private outputCallback: (output: string) => any;
 
-    constructor(outputCallback: (output: string) => any) {
+    private input: string;
+    private inputIndexer: number;
+
+    private outputCallback: (output: string) => any;
+    private inputCallback: () => string;
+
+    constructor(outputCallback: (output: string) => any, inputCallback: () => string) {
         this.stop = false;
         this.memory = _.times(Brainfck.MEMORY_SIZE, _.constant(0));
-        this.loopLookupTable = [];
-        this.pointer = 0;
+
         this.code = "";
+        this.pointer = 0;
         this.codeIndexer = 0;
+        this.loopLookupTable = [];
+
+        this.input = "";
+        this.inputIndexer = 0;
 
         this.errorCallback = this.consoleError;
         this.outputCallback = outputCallback;
+        this.inputCallback = inputCallback;
     }
 
     public interpret(code: string): void{
         this.reset();
         this.code = this.sanitizeCode(code);
         this.analyzeCode(this.code);
+
+        this.input = this.inputCallback();
 
         while(this.codeIndexer < this.code.length && !this.stop){
             this.executeSymbol(this.code[this.codeIndexer]);
@@ -67,6 +79,7 @@ export class Brainfck{
         this.pointer = 0;
         this.code = "";
         this.codeIndexer = 0;
+        this.inputIndexer = 0;
     }
 
     private sanitizeCode(code: string): string{
@@ -145,7 +158,13 @@ export class Brainfck{
                 this.outputCallback(String.fromCharCode(this.memory[this.pointer]));
                 break;
             case Brainfck.OPERATOR_INPUT:
-
+                if(this.inputIndexer < this.input.length){
+                    this.memory[this.pointer] = this.input.charCodeAt(this.inputIndexer);
+                    ++this.inputIndexer;
+                }
+                else{
+                    this.memory[this.pointer] = 0;
+                }
                 break;
             case Brainfck.OPERATOR_JUMP_ZERO:
                 if(this.memory[this.pointer] == Brainfck.ZERO_BYTE){
